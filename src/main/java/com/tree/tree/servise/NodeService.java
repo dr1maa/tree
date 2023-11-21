@@ -10,7 +10,7 @@ public interface NodeService {
 
     Node addNode(Node node);
 
-    Node getNodeById(int nodeId);
+    Node getNode(int nodeId);
 
     Node updateNode(Node updatedNode);
 

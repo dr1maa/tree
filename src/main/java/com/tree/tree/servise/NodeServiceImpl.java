@@ -23,7 +23,7 @@ public class NodeServiceImpl implements NodeService {
     }
 
     @Override
-    public Node getNodeById(int nodeId) {
+    public Node getNode(int nodeId) {
         return nodes.stream()
                 .filter(node -> node.getId() == nodeId)
                 .findFirst()
