@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/v1/nodes")
+@RequestMapping("/nodes")
 public class NodeController {
 
     private final NodeService nodeService;
@@ -20,7 +20,7 @@ public class NodeController {
         this.nodeService = nodeService;
     }
 
-    @GetMapping("/v1")
+    @GetMapping
     public List<Node> getAllNodes() {
         return nodeService.getAllNodes();
     }

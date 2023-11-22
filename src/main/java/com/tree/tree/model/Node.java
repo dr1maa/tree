@@ -11,7 +11,7 @@ public class Node {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private int id;
+    private int nodeId;
 
     @ManyToOne
     @JoinColumn(name = "parent_id")
@@ -21,11 +21,11 @@ public class Node {
     private List<Node> children = new ArrayList<>();
 
     public int getId() {
-        return id;
+        return nodeId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int nodeId) {
+        this.nodeId = nodeId;
     }
 
     public Node getParent() {
