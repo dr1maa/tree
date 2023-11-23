@@ -3,7 +3,7 @@ info:
   description: "API for wortk with simple tree structure."
   version: "1.0.0"
   title: "TreeNodeApi"
-host: "localhost:8889"
+host: "localhost:8181"
 basePath: "/v1"
 tags:
 - name: "nodes"
