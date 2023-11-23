@@ -12,7 +12,7 @@ public interface NodeService {
 
     Node getNode(int nodeId);
 
-    Node updateNode(Node updatedNode);
+    Node updateNode(int nodeId,Node updatedNode);
 
     void deleteNode(int nodeId);
 

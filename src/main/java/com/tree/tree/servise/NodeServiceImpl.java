@@ -31,11 +31,15 @@ public class NodeServiceImpl implements NodeService {
     }
 
     @Override
-    public Node updateNode(Node updatedNode) {
-        for (Node node : nodes) {
-            if (node.getId() == updatedNode.getId()) {
+    public Node updateNode(int nodeId,Node updatedNode) {
+        for (int i = 0; i< nodes.size(); i++) {
+            Node node = nodes.get(i);
+            if (node.getId() == nodeId) {
                 node.setParent(updatedNode.getParent());
                 node.setChildren(updatedNode.getChildren());
+                node.setName(updatedNode.getName());
+                node.setPort(updatedNode.getPort());
+                node.setIp(updatedNode.getIp());
                 return node;
             }
         }
