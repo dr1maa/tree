@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
 @Repository
 public interface NodeRepository extends JpaRepository<Node, Integer> {
 
@@ -15,6 +14,12 @@ public interface NodeRepository extends JpaRepository<Node, Integer> {
     List<Node> findByParent(Node parent);
 
     List<Node> findByParentIsNull();
+
+    Node save(Node node);
+
+    Node saveAndFlush(Node node);
+
+    void deleteByNodeId(int nodeId);
 
     void deleteByParent(Node parent);
 }

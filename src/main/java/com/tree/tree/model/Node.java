@@ -68,14 +68,11 @@ public class Node {
 
     public int getPort() {
         return port;
-
-
     }
 
     public void setPort(int port) {
         this.port = port;
     }
-
 }
 
 
