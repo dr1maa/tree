@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface NodeRepository extends JpaRepository<Node, Integer> {
 
-    Node findByNodeId(int nodeId);
+    Node findById(int id);
 
     List<Node> findByParent(Node parent);
 
@@ -19,7 +19,7 @@ public interface NodeRepository extends JpaRepository<Node, Integer> {
 
     Node saveAndFlush(Node node);
 
-    void deleteByNodeId(int nodeId);
+    void deleteById(int id);
 
     void deleteByParent(Node parent);
 }
