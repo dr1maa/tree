@@ -11,7 +11,7 @@ public class Node {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private int nodeId;
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "parent_id")
@@ -19,13 +19,19 @@ public class Node {
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Node> children = new ArrayList<>();
+    @Column(name = "name")
+    private String name;
+    @Column(name = "ip")
+    private String ip;
+    @Column(name = "port")
+    private int port;
 
     public int getId() {
-        return nodeId;
+        return id;
     }
 
-    public void setId(int nodeId) {
-        this.nodeId = nodeId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Node getParent() {
@@ -44,6 +50,29 @@ public class Node {
         this.children = children;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
 }
 
 
