@@ -1,6 +1,8 @@
 package com.tree.tree.servise;
 
 import com.tree.tree.model.Node;
+import com.tree.tree.repository.NodeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -8,7 +10,13 @@ import java.util.List;
 
 @Service
 public class NodeServiceImpl implements NodeService {
+    @Autowired
+    private  final NodeRepository nodeRepository;
     private List<Node> nodes = new ArrayList<>();
+
+    public NodeServiceImpl(NodeRepository nodeRepository) {
+        this.nodeRepository = nodeRepository;
+    }
 
     @Override
     public List<Node> getAllNodes() {
@@ -19,7 +27,7 @@ public class NodeServiceImpl implements NodeService {
     @Override
     public Node addNode(Node node) {
         nodes.add(node);
-        return node;
+        return nodeRepository.save(node);
     }
 
     @Override
