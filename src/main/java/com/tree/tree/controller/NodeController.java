@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/nodes")
+@RequestMapping("/v1/nodes")
 public class NodeController {
 
     private final NodeService nodeService;
