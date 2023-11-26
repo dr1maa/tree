@@ -7,11 +7,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class NodeServiceImpl implements NodeService {
     @Autowired
-    private  final NodeRepository nodeRepository;
+    private final NodeRepository nodeRepository;
     private List<Node> nodes = new ArrayList<>();
 
     public NodeServiceImpl(NodeRepository nodeRepository) {
@@ -20,64 +21,53 @@ public class NodeServiceImpl implements NodeService {
 
     @Override
     public List<Node> getAllNodes() {
-        return nodes;
+        return nodeRepository.findAll();
     }
 
 
     @Override
     public Node addNode(Node node) {
-        nodes.add(node);
-        return nodeRepository.save(node);
+        Node savedNode = nodeRepository.save(node);
+        nodes.add(savedNode);
+        return savedNode;
     }
 
     @Override
     public Node getNode(int nodeId) {
-        return nodes.stream()
-                .filter(node -> node.getId() == nodeId)
-                .findFirst()
-                .orElse(null);
+        if (nodeRepository.findById(nodeId) == null) {
+            return null;
+        } else {
+            return nodeRepository.findById(nodeId);
+        }
     }
 
     @Override
-    public Node updateNode(int nodeId,Node updatedNode) {
-        for (int i = 0; i< nodes.size(); i++) {
-            Node node = nodes.get(i);
-            if (node.getId() == nodeId) {
-                node.setParent(updatedNode.getParent());
-                node.setChildren(updatedNode.getChildren());
-                node.setName(updatedNode.getName());
-                node.setPort(updatedNode.getPort());
-                node.setIp(updatedNode.getIp());
-                return node;
-            }
+    public Node updateNode(int nodeId, Node updatedNode) {
+        Node existingNode = nodeRepository.findById(nodeId);
+        if (existingNode != null) {
+            existingNode.setParent(updatedNode.getParent());
+            existingNode.setChildren(updatedNode.getChildren());
+            existingNode.setName(updatedNode.getName());
+            existingNode.setPort(updatedNode.getPort());
+            existingNode.setIp(updatedNode.getIp());
+            return nodeRepository.save(existingNode);
         }
         return null;
     }
 
     @Override
     public void deleteNode(int nodeId) {
-        nodes.removeIf(node -> node.getId() == nodeId);
+        nodeRepository.deleteById(nodeId);
     }
 
     @Override
     public List<Node> getChildren(int parentId) {
-        List<Node> children = new ArrayList<>();
-        for (Node node : nodes) {
-            if (node.getParent() != null && node.getParent().getId() == parentId) {
-                children.add(node);
-            }
-        }
-        return children;
+        return nodeRepository.findByParentId(parentId);
     }
 
     @Override
     public List<Node> getRootNodes() {
-        List<Node> rootNodes = new ArrayList<>();
-        for (Node node : nodes) {
-            if (node.getParent() == null) {
-                rootNodes.add(node);
-            }
-        }
-        return rootNodes;
+
+       return nodeRepository.findByParentIsNull();
     }
 }
