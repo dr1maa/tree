@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/nodes")
+@RequestMapping("/v1/nodes/")
 public class NodeController {
 
     private final NodeService nodeService;
@@ -25,14 +25,14 @@ public class NodeController {
         return nodeService.getAllNodes();
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public Node addNode(@RequestBody Node node) {
         return nodeService.addNode(node);
     }
 
     @GetMapping("/{nodeId}")
-    public Node getNodeById(@PathVariable int nodeId) {
-        return nodeService.getNodeById(nodeId);
+    public Node getNode(@PathVariable int nodeId) {
+        return nodeService.getNode(nodeId);
     }
 
     @DeleteMapping("/{nodeId}")

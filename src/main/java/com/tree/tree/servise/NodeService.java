@@ -10,9 +10,9 @@ public interface NodeService {
 
     Node addNode(Node node);
 
-    Node getNodeById(int nodeId);
+    Node getNode(int nodeId);
 
-    Node updateNode(Node updatedNode);
+    Node updateNode(int nodeId,Node updatedNode);
 
     void deleteNode(int nodeId);
 
