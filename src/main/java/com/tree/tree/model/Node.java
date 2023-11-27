@@ -26,7 +26,7 @@ public class Node {
     @Column(name = "port")
     private int port;
 
-    public int getId() {
+    public int getId(Integer parentId) {
         return id;
     }
 

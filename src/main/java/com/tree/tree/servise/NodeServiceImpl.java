@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class NodeServiceImpl implements NodeService {
@@ -23,8 +24,8 @@ public class NodeServiceImpl implements NodeService {
 
 
     @Override
-    public Node addNode(Node node, int parentId) {
-        Node parentNode = nodeRepository.findById(parentId);
+    public Node addNode(Node node,int parentId) {
+       Node parentNode = nodeRepository.findById(parentId);
         if (parentNode != null) {
             node.setParent(parentNode);
             parentNode.getChildren().add(node);
