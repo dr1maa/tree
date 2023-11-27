@@ -26,8 +26,12 @@ public class NodeController {
     }
 
     @PostMapping
-    public Node addNode(@RequestBody Node node) {
-        return nodeService.addNode(node);
+    public Node addNode(@RequestBody Node node, @RequestParam(name = "parentId", required = false) Integer parentId) {
+        if (parentId != null) {
+            return nodeService.addNode(node, parentId);
+        } else {
+            return nodeService.addNode(node);
+        }
     }
 
     @GetMapping("/{nodeId}")
@@ -48,5 +52,10 @@ public class NodeController {
     @GetMapping("/root")
     public List<Node> getRootNodes() {
         return nodeService.getRootNodes();
+    }
+
+    @PutMapping("/{nodeId}")
+    public Node updateNode(@PathVariable int nodeId, @RequestBody Node updatedNode) {
+        return nodeService.updateNode(nodeId, updatedNode);
     }
 }

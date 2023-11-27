@@ -8,7 +8,7 @@ import java.util.List;
 public interface NodeService {
     List<Node> getAllNodes();
 
-    Node addNode(Node node);
+    Node addNode(Node node, int parentId);
 
     Node getNode(int nodeId);
 
@@ -20,4 +20,5 @@ public interface NodeService {
 
     List<Node> getRootNodes();
 
+    Node addNode(Node node);
 }

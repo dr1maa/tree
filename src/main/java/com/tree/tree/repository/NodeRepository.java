@@ -16,7 +16,8 @@ public interface NodeRepository extends JpaRepository<Node, Integer> {
     Node saveAndFlush(Node node);
 
     void deleteById(int id);
-    List<Node> findByParentId(int parentId);
-    List<Node> findByParentIsNull();
 
+    List<Node> findByParentId(int parentId);
+
+    List<Node> findByParentIsNull();
 }
