@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class NodeServiceImpl implements NodeService {
@@ -23,12 +24,12 @@ public class NodeServiceImpl implements NodeService {
 
 
     @Override
-    public Node addNode(Node node, int parentId) {
-        Node parentNode = nodeRepository.findById(parentId);
-        if (parentNode != null) {
+    public Node addNode(Node node, Integer parentId) {
+        Optional<Node> optionalParentNode = nodeRepository.findById(parentId);
+        if (optionalParentNode.isPresent()) {
+            Node parentNode = optionalParentNode.get();
             node.setParent(parentNode);
             parentNode.getChildren().add(node);
-            nodeRepository.save(parentNode);
             return nodeRepository.save(node);
         } else {
             return null;
@@ -36,39 +37,40 @@ public class NodeServiceImpl implements NodeService {
     }
 
     @Override
+    public Node addNode(Node node) {
+        return nodeRepository.save(node);
+    }
+
+    @Override
     public Node getNode(int nodeId) {
-     return nodeRepository.findById(nodeId);
+        return nodeRepository.findById(nodeId);
     }
 
     @Override
     public Node updateNode(int nodeId, Node updatedNode) {
         Node existingNode = nodeRepository.findById(nodeId);
         if (existingNode != null) {
-                existingNode.setName(updatedNode.getName());
-                existingNode.setIp(updatedNode.getIp());
-                existingNode.setPort(updatedNode.getPort());
-           return nodeRepository.save(existingNode);
+            existingNode.setName(updatedNode.getName());
+            existingNode.setIp(updatedNode.getIp());
+            existingNode.setPort(updatedNode.getPort());
+            return nodeRepository.save(existingNode);
         }
         return null;
     }
+
     @Override
     public void deleteNode(int nodeId) {
         nodeRepository.deleteById(nodeId);
     }
 
     @Override
-        public List<Node> getChildren(int parentId) {
+    public List<Node> getChildren(int parentId) {
         return nodeRepository.findByParentId(parentId);
     }
 
     @Override
     public List<Node> getRootNodes() {
 
-       return nodeRepository.findByParentIsNull();
-    }
-
-    @Override
-    public Node addNode(Node node) {
-        return nodeRepository.save(node);
+        return nodeRepository.findByParentIsNull();
     }
 }

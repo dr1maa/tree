@@ -26,9 +26,9 @@ public class NodeController {
     }
 
     @PostMapping
-    public Node addNode(@RequestBody Node node, @RequestParam(name = "parentId", required = false) Integer parentId) {
-        if (parentId != null) {
-            return nodeService.addNode(node, parentId);
+    public Node addNode(@RequestBody Node node) {
+        if (node.getParent() != null) {
+            return nodeService.addNode(node, node.getParent().getId());
         } else {
             return nodeService.addNode(node);
         }
