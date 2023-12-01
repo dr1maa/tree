@@ -4,18 +4,19 @@ import com.tree.tree.model.Node;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public interface NodeService {
     List<Node> getAllNodes();
 
-    Node addNode(Node node, Integer parentId);
-    Node addNode(Node node);
+    Node addNode(Node node, int parentId);
 
     Node getNode(int nodeId);
 
-    Node updateNode(int nodeId,Node updatedNode);
+    Node updateNode(Integer nodeId,Node updatedNode);
 
-    void deleteNode(int nodeId);
+    void deleteNode(Integer nodeId);
 
     List<Node> getChildren(int parentId);
 

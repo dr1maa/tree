@@ -24,21 +24,16 @@ public class NodeServiceImpl implements NodeService {
 
 
     @Override
-    public Node addNode(Node node, Integer parentId) {
-        Optional<Node> optionalParentNode = nodeRepository.findById(parentId);
-        if (optionalParentNode.isPresent()) {
-            Node parentNode = optionalParentNode.get();
-            node.setParent(parentNode);
+    public Node addNode(Node node, int parentId) {
+        Node parentNode = nodeRepository.findById(parentId);
+        if (parentNode != null) {
+            node.setParentId(parentNode.getId());
             parentNode.getChildren().add(node);
+            nodeRepository.save(parentNode);
             return nodeRepository.save(node);
         } else {
             return null;
         }
-    }
-
-    @Override
-    public Node addNode(Node node) {
-        return nodeRepository.save(node);
     }
 
     @Override
@@ -47,9 +42,10 @@ public class NodeServiceImpl implements NodeService {
     }
 
     @Override
-    public Node updateNode(int nodeId, Node updatedNode) {
-        Node existingNode = nodeRepository.findById(nodeId);
-        if (existingNode != null) {
+    public Node updateNode(Integer nodeId, Node updatedNode) {
+       Optional<Node> existingNodeOptional = nodeRepository.findById(nodeId);
+        if (existingNodeOptional != null) {
+            Node existingNode = existingNodeOptional.get();
             existingNode.setName(updatedNode.getName());
             existingNode.setIp(updatedNode.getIp());
             existingNode.setPort(updatedNode.getPort());
@@ -59,7 +55,7 @@ public class NodeServiceImpl implements NodeService {
     }
 
     @Override
-    public void deleteNode(int nodeId) {
+    public void deleteNode(Integer nodeId) {
         nodeRepository.deleteById(nodeId);
     }
 

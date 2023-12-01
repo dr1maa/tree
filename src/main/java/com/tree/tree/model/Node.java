@@ -11,10 +11,12 @@ public class Node {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
 
+    @Column(name = "parent_id")
+    private Integer parentId;
     @ManyToOne
-    @JoinColumn(name = "parent_id")
+    @JoinColumn(name = "parent_id", insertable = false, updatable = false)
     private Node parent;
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -24,14 +26,22 @@ public class Node {
     @Column(name = "ip")
     private String ip;
     @Column(name = "port")
-    private int port;
+    private Integer port;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
     }
 
     public Node getParent() {
@@ -66,11 +76,11 @@ public class Node {
         this.ip = ip;
     }
 
-    public int getPort() {
+    public Integer getPort() {
         return port;
     }
 
-    public void setPort(int port) {
+    public void setPort(Integer port) {
         this.port = port;
     }
 }
