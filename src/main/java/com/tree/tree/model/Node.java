@@ -1,5 +1,7 @@
 package com.tree.tree.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -17,9 +19,10 @@ public class Node {
     private Integer parentId;
     @ManyToOne
     @JoinColumn(name = "parent_id", insertable = false, updatable = false)
+    @JsonBackReference
     private Node parent;
-
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Node> children = new ArrayList<>();
     @Column(name = "name")
     private String name;
@@ -27,6 +30,16 @@ public class Node {
     private String ip;
     @Column(name = "port")
     private Integer port;
+
+    public Node(Integer id, Integer parentId, Node parent, List<Node> children, String name, String ip, Integer port) {
+        this.id = id;
+        this.parentId = parentId;
+        this.parent = parent;
+        this.children = children;
+        this.name = name;
+        this.ip = ip;
+        this.port = port;
+    }
 
     public Integer getId() {
         return id;
@@ -82,6 +95,9 @@ public class Node {
 
     public void setPort(Integer port) {
         this.port = port;
+    }
+
+    public Node() {
     }
 }
 

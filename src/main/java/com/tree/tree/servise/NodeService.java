@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface NodeService {
     List<Node> getAllNodes();
 
-    Node addNode(Node node, int parentId);
+    Node addNode(Node node, Integer parentId);
 
     Node getNode(int nodeId);
 

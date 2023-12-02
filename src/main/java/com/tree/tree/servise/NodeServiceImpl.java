@@ -24,17 +24,17 @@ public class NodeServiceImpl implements NodeService {
 
 
     @Override
-    public Node addNode(Node node, int parentId) {
-        Node parentNode = nodeRepository.findById(parentId);
-        if (parentNode != null) {
-            node.setParentId(parentNode.getId());
+    public Node addNode(Node node, Integer parentId) {
+        Optional<Node> optionalParentNode = nodeRepository.findById(parentId);
+        if (optionalParentNode.isPresent()) {
+            Node parentNode = optionalParentNode.get();
             parentNode.getChildren().add(node);
             nodeRepository.save(parentNode);
-            return nodeRepository.save(node);
-        } else {
-            return null;
         }
+
+        return nodeRepository.save(node);
     }
+
 
     @Override
     public Node getNode(int nodeId) {
@@ -43,7 +43,7 @@ public class NodeServiceImpl implements NodeService {
 
     @Override
     public Node updateNode(Integer nodeId, Node updatedNode) {
-       Optional<Node> existingNodeOptional = nodeRepository.findById(nodeId);
+        Optional<Node> existingNodeOptional = nodeRepository.findById(nodeId);
         if (existingNodeOptional != null) {
             Node existingNode = existingNodeOptional.get();
             existingNode.setName(updatedNode.getName());
