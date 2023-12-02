@@ -14,11 +14,11 @@ public interface NodeService {
 
     Node getNode(int nodeId);
 
-    Node updateNode(Integer nodeId,Node updatedNode);
+    Node updateNode(Integer id,Node updatedNode);
 
-    void deleteNode(Integer nodeId);
+    void deleteNode(Integer id);
 
-    List<Node> getChildren(int parentId);
+    List<Node> getChildren(Integer parentId);
 
     List<Node> getRootNodes();
 }
